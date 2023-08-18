@@ -15,10 +15,10 @@ class _LoginPageState extends State<LoginPage> {
   bool signup = false;
   bool isInstructor = false;
 
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmController = TextEditingController();
 
   @override
   void dispose() {
@@ -43,7 +43,9 @@ class _LoginPageState extends State<LoginPage> {
         bool successful = await FirebaseAuthService.loginWithEmailAndPassword(
             context, emailController.text, passwordController.text);
         if (context.mounted && successful) {
-          //TODO
+          Navigator.of(context).pushReplacementNamed(
+            "/Home",
+          );
         }
       } else {
         bool successful = await FirebaseAuthService.signupWithEmailAndPassword(
@@ -53,7 +55,9 @@ class _LoginPageState extends State<LoginPage> {
             passwordController.text,
             (isInstructor) ? "Instructor" : " Student");
         if (context.mounted && successful) {
-          //TODO
+          Navigator.of(context).pushReplacementNamed(
+            "/Home",
+          );
         }
       }
     }

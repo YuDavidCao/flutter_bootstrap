@@ -4,6 +4,8 @@ const double globalEdgePadding = 20.0;
 
 const double globalMarginPadding = 10.0;
 
+const double defaultBottomAppBarHeight = 76.0;
+
 const Color sixtyUIColor = Colors.white;
 
 const Color thirtyUIColor = Colors.amber;
