@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_bootstrap/controller/user_state.dart';
 import 'package:flutter_bootstrap/pages/login_page.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'pages.dart';
 
@@ -22,17 +24,22 @@ class MyApp extends StatelessWidget {
       onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
       },
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'App',
-        theme: ThemeData(
-          primarySwatch: Colors.amber,
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => UserState()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'App',
+          theme: ThemeData(
+            primarySwatch: Colors.amber,
+          ),
+          initialRoute: '/LoginPage',
+          routes: {
+            '/LoginPage': (context) => const LoginPage(),
+            '/Home': (context) => const HomePage(),
+          },
         ),
-        initialRoute: '/LoginPage',
-        routes: {
-          '/LoginPage': (context) => const LoginPage(),
-          '/Home': (context) => const HomePage(),
-        },
       ),
     );
   }

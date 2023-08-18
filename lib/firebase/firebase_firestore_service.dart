@@ -9,7 +9,7 @@ class FirebaseFirestoreService {
     if (!documentSnapshot.exists) {
       collectionReference.doc(email).set({
         "email": email,
-        "name": email.substring(0, 2).toUpperCase(),
+        "name": username,
         "role": role
       });
     }

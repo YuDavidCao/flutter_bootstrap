@@ -15,12 +15,14 @@ class _LoginPageState extends State<LoginPage> {
   bool signup = false;
   bool isInstructor = false;
 
+  TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmController = TextEditingController();
 
   @override
   void dispose() {
+    usernameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     confirmController.dispose();
@@ -29,6 +31,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void resetInfo() {
     isInstructor = false;
+    usernameController.text = "";
     emailController.text = "";
     passwordController.text = "";
     confirmController.text = "";
@@ -45,6 +48,7 @@ class _LoginPageState extends State<LoginPage> {
       } else {
         bool successful = await FirebaseAuthService.signupWithEmailAndPassword(
             context,
+            usernameController.text,
             emailController.text,
             passwordController.text,
             (isInstructor) ? "Instructor" : " Student");
@@ -82,10 +86,28 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
+                    if (signup)
+                      SizedBox(
+                        child: TextFormField(
+                          controller: usernameController,
+                          decoration: const InputDecoration(
+                              prefixIcon: Icon(Icons.person),
+                              labelText: 'Create a username',
+                              border: OutlineInputBorder()),
+                          validator: (val) {
+                            if (val!.isEmpty) {
+                              return 'Username Cannot be empty';
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
+                      ),
+                    if (signup) const SizedBox(height: globalMarginPadding),
                     TextFormField(
                       controller: emailController,
                       decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.person),
+                          prefixIcon: Icon(Icons.email),
                           labelText: 'Enter your email',
                           border: OutlineInputBorder()),
                       validator: (val) {

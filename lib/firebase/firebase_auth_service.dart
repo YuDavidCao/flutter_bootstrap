@@ -16,8 +16,8 @@ class FirebaseAuthService {
     return FirebaseAuth.instance.currentUser != null;
   }
 
-  static Future<bool> signupWithEmailAndPassword(
-      BuildContext context, String email, String password, String role) async {
+  static Future<bool> signupWithEmailAndPassword(BuildContext context,
+      String username, String email, String password, String role) async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
@@ -28,9 +28,7 @@ class FirebaseAuthService {
     }
     if (FirebaseAuth.instance.currentUser != null) {
       FirebaseFirestoreService.addUserData(
-          FirebaseAuth.instance.currentUser!.email ?? "",
-          FirebaseAuth.instance.currentUser!.uid,
-          role);
+          FirebaseAuth.instance.currentUser!.email ?? "", username, role);
     }
     return FirebaseAuth.instance.currentUser != null;
   }
