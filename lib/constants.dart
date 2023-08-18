@@ -6,9 +6,15 @@ const double globalMarginPadding = 10.0;
 
 const Color sixtyUIColor = Colors.white;
 
-const Color thirtyUIColor = Color(0xFF0E2C71);
+const Color thirtyUIColor = Colors.amber;
 
-const Color tenUIColor = Color.fromRGBO(230, 188, 107, 1);
+const Color tenUIColor = Colors.amber;
+
+const TextStyle titleTextStyle = TextStyle(fontSize: 25);
+
+const TextStyle ctaButtonStyle = TextStyle(fontSize: 18, color: Colors.white);
+
+RegExp emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 
 const LinearGradient goldLinearGradient = LinearGradient(
   begin: Alignment(0, -1),
@@ -27,4 +33,3 @@ const LinearGradient blueLinearGradient = LinearGradient(
     Color(0xFF0b1f41),
   ],
 );
-

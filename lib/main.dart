@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_bootstrap/pages/login_page.dart';
+import 'firebase_options.dart';
 import 'pages.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-      overlays: [SystemUiOverlay.top]);  
+      overlays: [SystemUiOverlay.top]);
   runApp(const MyApp());
 }
 
@@ -22,21 +26,11 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'App',
         theme: ThemeData(
-          primarySwatch: const MaterialColor(0xFF0E2C71, {
-            50: Color(0xFF0E2C71),
-            100: Color(0xFF0E2C71),
-            200: Color(0xFF0E2C71),
-            300: Color(0xFF0E2C71),
-            400: Color(0xFF0E2C71),
-            500: Color(0xFF0E2C71),
-            600: Color(0xFF0E2C71),
-            700: Color(0xFF0E2C71),
-            800: Color(0xFF0E2C71),
-            900: Color(0xFF0E2C71),
-          }),
+          primarySwatch: Colors.amber,
         ),
-        initialRoute: '/Home',
+        initialRoute: '/LoginPage',
         routes: {
+          '/LoginPage': (context) => const LoginPage(),
           '/Home': (context) => const HomePage(),
         },
       ),
