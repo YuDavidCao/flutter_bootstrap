@@ -38,7 +38,8 @@ class _HomePageState extends State<HomePage> {
           ),
           IconButton(
               onPressed: () {
-                //TODO
+                Navigator.of(context)
+                    .pushNamed("/InClassPage", arguments: {"classId": classId});
               },
               icon: const Icon(Icons.keyboard_arrow_right))
         ],

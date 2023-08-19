@@ -33,9 +33,24 @@ class FirebaseFirestoreService {
         .doc(id.id)
         .collection("Post")
         .add({
-      "userEmail": userEmail,
+      "UserEmail": userEmail,
+      "UserName": username,
       "Message": "Classroom created by $username",
-      "time": DateTime.now(),
+      "Time": DateTime.now(),
+    });
+  }
+
+  static void postActivity(
+      String message, String classId, String userEmail, String username) async {
+    FirebaseFirestore.instance
+        .collection("Classroom")
+        .doc(classId)
+        .collection("Post")
+        .add({
+      "UserEmail": userEmail,
+      "UserName": username,
+      "Message": message,
+      "Time": DateTime.now(),
     });
   }
 

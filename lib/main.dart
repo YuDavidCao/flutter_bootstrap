@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bootstrap/controller/user_state.dart';
 import 'package:flutter_bootstrap/pages/add_classroom_page.dart';
+import 'package:flutter_bootstrap/pages/in_class_page.dart';
 import 'package:flutter_bootstrap/pages/login_page.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
@@ -35,11 +36,18 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.amber,
           ),
-          initialRoute: '/LoginPage',
+          initialRoute: '/Home',
           routes: {
             '/LoginPage': (context) => const LoginPage(),
             '/Home': (context) => const HomePage(),
             '/AddClassroomPage': (context) => const AddClassroomPage(),
+            '/InClassPage': (context) {
+              final arguments = ModalRoute.of(context)?.settings.arguments
+                  as Map<String, dynamic>;
+              return InClassPage(
+                classId: arguments["classId"],
+              );
+            },
           },
         ),
       ),
