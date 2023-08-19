@@ -32,6 +32,12 @@ class ClassActivityStream with ChangeNotifier {
     loadClassroomActivity();
   }
 
+  @override
+  void dispose() {
+    _subscription?.cancel();
+    super.dispose();
+  }
+
   void loadClassroomActivity() {
     _subscription?.cancel();
     _subscription = _currentQuery.snapshots().listen((querySnapshot) {

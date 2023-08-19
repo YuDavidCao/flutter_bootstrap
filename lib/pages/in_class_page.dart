@@ -112,7 +112,12 @@ class ActivityCard extends StatelessWidget {
             ],
           ),
           (isInstructor || isMyOwnPost)
-              ? IconButton(onPressed: () {}, icon: const Icon(Icons.delete))
+              ? IconButton(
+                  onPressed: () {
+                    FirebaseFirestoreService.deleteClassActivity(
+                        classId, activityId);
+                  },
+                  icon: const Icon(Icons.delete))
               : const SizedBox()
         ],
       ),

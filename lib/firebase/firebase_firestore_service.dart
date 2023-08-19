@@ -55,6 +55,15 @@ class FirebaseFirestoreService {
     });
   }
 
+  static void deleteClassActivity(String classId, String activityId) {
+    FirebaseFirestore.instance
+        .collection("Classroom")
+        .doc(classId)
+        .collection("Post")
+        .doc(activityId)
+        .delete();
+  }
+
   static Future<DocumentSnapshot> getClassroomData(String classId) async {
     return FirebaseFirestore.instance
         .collection("Classroom")

@@ -36,6 +36,12 @@ class ClassroomState with ChangeNotifier {
     loadClassroom();
   }
 
+  @override
+  void dispose() {
+    _subscription?.cancel();
+    super.dispose();
+  }
+
   void loadClassroom() {
     _subscription?.cancel();
     _subscription = _currentQuery.snapshots().listen((querySnapshot) {

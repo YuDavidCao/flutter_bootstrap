@@ -33,18 +33,26 @@ class UserState with ChangeNotifier {
     });
   }
 
+  @override
+  void dispose() {
+    _subscription?.cancel();
+    super.dispose();
+  }
+
   void reinitialize() {
     _subscription?.cancel();
-    _subscription = FirebaseFirestore.instance
-        .collection("User")
-        .doc(_user!.email)
-        .snapshots()
-        .listen((snapshot) {
-      Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
-      role = data["role"];
-      username = data["name"];
-      classes = List<String>.from(data["classes"]);
-      notifyListeners();
-    });
+    if (FirebaseAuth.instance.currentUser != null) {
+      _subscription = FirebaseFirestore.instance
+          .collection("User")
+          .doc(_user!.email)
+          .snapshots()
+          .listen((snapshot) {
+        Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+        role = data["role"];
+        username = data["name"];
+        classes = List<String>.from(data["classes"]);
+        notifyListeners();
+      });
+    }
   }
 }
