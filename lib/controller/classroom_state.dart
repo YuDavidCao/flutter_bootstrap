@@ -47,6 +47,7 @@ class ClassroomState with ChangeNotifier {
     _subscription = _currentQuery.snapshots().listen((querySnapshot) {
       List<DocumentSnapshot> temp;
       temp = querySnapshot.docs;
+      _loadedClassroom = [];
       for (int i = 0; i < temp.length; i++) {
         if (!temp[i]["Student"].contains(currentUserEmail) &&
             !temp[i]["Instructor"].contains(currentUserEmail)) {
