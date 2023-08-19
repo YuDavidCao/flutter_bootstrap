@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
             usernameController.text,
             emailController.text,
             passwordController.text,
-            (isInstructor) ? "Instructor" : " Student");
+            (isInstructor) ? "Instructor" : "Student");
         if (context.mounted && successful) {
           Navigator.of(context).pushReplacementNamed(
             "/Home",

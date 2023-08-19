@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_bootstrap/controller/classroom_state.dart';
 
 class FirebaseFirestoreService {
   static void addUserData(String email, String username, String role) async {
@@ -59,5 +60,21 @@ class FirebaseFirestoreService {
         .collection("Classroom")
         .doc(classId)
         .get();
+  }
+
+  static void enrollInClass(String classId, String userEmail, String role,
+      ClassroomState classroomState) {
+    FirebaseFirestore.instance.collection("User").doc(userEmail).update({
+      "classes": FieldValue.arrayUnion([classId])
+    });
+    if (role == "Student") {
+      FirebaseFirestore.instance.collection("Classroom").doc(classId).update({
+        "Student": FieldValue.arrayUnion([userEmail])
+      });
+    } else if (role == "Instructor") {
+      FirebaseFirestore.instance.collection("Classroom").doc(classId).update({
+        "Instructor": FieldValue.arrayUnion([userEmail])
+      });
+    }
   }
 }

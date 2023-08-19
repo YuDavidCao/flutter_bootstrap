@@ -5,16 +5,25 @@ import 'package:flutter/material.dart';
 
 class ClassroomState with ChangeNotifier {
   StreamSubscription<QuerySnapshot>? _subscription;
-  List<DocumentSnapshot> _loadedActivity = [];
+  List<DocumentSnapshot> _loadedClassroom = [];
+  late String _currentUserEmail;
 
-  List<DocumentSnapshot> get loadedActivity => _loadedActivity;
+  String get currentUserEmail => _currentUserEmail;
 
-  set loadedActivity(List<DocumentSnapshot> value) {
-    _loadedActivity = value;
+  set currentUserEmail(String value) {
+    _currentUserEmail = value;
+  }
+
+  final Query<Map<String, dynamic>> _currentQuery =
+      FirebaseFirestore.instance.collection("Classroom");
+
+  List<DocumentSnapshot> get loadedClassroom => _loadedClassroom;
+
+  set loadedClassroom(List<DocumentSnapshot> value) {
+    _loadedClassroom = value;
   }
 
   late String _classId;
-  late Query<Map<String, dynamic>> _currentQuery;
 
   String get classId => _classId;
 
@@ -22,20 +31,22 @@ class ClassroomState with ChangeNotifier {
     _classId = value;
   }
 
-  ClassroomState(String classId) {
-    classId = classId;
-    _currentQuery = FirebaseFirestore.instance
-        .collection("Classroom")
-        .doc(classId)
-        .collection("Post")
-        .orderBy('Time', descending: false);
-    loadClassroomActivity();
+  ClassroomState(String currentUserEmail) {
+    _currentUserEmail = currentUserEmail;
+    loadClassroom();
   }
 
-  void loadClassroomActivity() {
+  void loadClassroom() {
     _subscription?.cancel();
     _subscription = _currentQuery.snapshots().listen((querySnapshot) {
-      loadedActivity = querySnapshot.docs;
+      List<DocumentSnapshot> temp;
+      temp = querySnapshot.docs;
+      for (int i = 0; i < temp.length; i++) {
+        if (!temp[i]["Student"].contains(currentUserEmail) &&
+            !temp[i]["Instructor"].contains(currentUserEmail)) {
+          _loadedClassroom.add(temp[i]);
+        }
+      }
       notifyListeners();
     });
   }

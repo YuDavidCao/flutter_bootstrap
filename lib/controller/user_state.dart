@@ -26,15 +26,15 @@ class UserState with ChangeNotifier {
   }
 
   UserState() {
-    reinitialize();
+    FirebaseAuth.instance.authStateChanges().listen((event) {
+      _user = event;
+      reinitialize();
+      notifyListeners();
+    });
   }
 
   void reinitialize() {
     _subscription?.cancel();
-    FirebaseAuth.instance.authStateChanges().listen((event) {
-      _user = event;
-      notifyListeners();
-    });
     _subscription = FirebaseFirestore.instance
         .collection("User")
         .doc(_user!.email)

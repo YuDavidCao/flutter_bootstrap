@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bootstrap/constants.dart';
-import 'package:flutter_bootstrap/controller/classroom_state.dart';
+import 'package:flutter_bootstrap/controller/class_activity_stream.dart';
 import 'package:flutter_bootstrap/controller/user_state.dart';
 import 'package:flutter_bootstrap/firebase/firebase_firestore_service.dart';
 import 'package:provider/provider.dart';
@@ -34,11 +34,11 @@ class _InClassPageState extends State<InClassPage> {
     return Scaffold(
       appBar: AppBar(),
       body: ChangeNotifierProvider(
-        create: (_) => ClassroomState(widget.classId),
+        create: (_) => ClassActivityStream(widget.classId),
         child: Stack(
           children: [
-            Consumer<ClassroomState>(
-              builder: (context, ClassroomState classroomState, child) {
+            Consumer<ClassActivityStream>(
+              builder: (context, ClassActivityStream classroomState, child) {
                 return ListView(
                   children: [
                     ...classroomState.loadedActivity
