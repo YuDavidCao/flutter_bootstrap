@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 class UserState with ChangeNotifier {
   StreamSubscription<DocumentSnapshot>? _subscription;
+  List<String> classes = [];
   User? _user = FirebaseAuth.instance.currentUser;
   String? _role;
   String? _username;
@@ -42,6 +43,7 @@ class UserState with ChangeNotifier {
       Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
       role = data["role"];
       username = data["name"];
+      classes = List<String>.from(data["classes"]);
       notifyListeners();
     });
   }

@@ -18,6 +18,12 @@ const TextStyle ctaButtonStyle = TextStyle(fontSize: 18, color: Colors.white);
 
 RegExp emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 
+const EdgeInsets globalMiddleWidgetPadding = EdgeInsets.fromLTRB(
+    globalEdgePadding,
+    globalMarginPadding,
+    globalEdgePadding,
+    globalMarginPadding);
+
 const LinearGradient goldLinearGradient = LinearGradient(
   begin: Alignment(0, -1),
   end: Alignment(0, 1),

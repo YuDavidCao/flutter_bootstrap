@@ -38,4 +38,11 @@ class FirebaseFirestoreService {
       "time": DateTime.now(),
     });
   }
+
+  static Future<DocumentSnapshot> getClassroomData(String classId) async {
+    return FirebaseFirestore.instance
+        .collection("Classroom")
+        .doc(classId)
+        .get();
+  }
 }

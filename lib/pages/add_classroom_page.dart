@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bootstrap/constants.dart';
 import 'package:flutter_bootstrap/controller/user_state.dart';
@@ -35,7 +34,7 @@ class _AddClassroomPageState extends State<AddClassroomPage> {
                     border: OutlineInputBorder()),
                 validator: (val) {
                   if (val!.isEmpty) {
-                    return 'Enter a class name';
+                    return 'Class name cannot be empty';
                   } else {
                     return null;
                   }
@@ -52,7 +51,7 @@ class _AddClassroomPageState extends State<AddClassroomPage> {
                     border: OutlineInputBorder()),
                 validator: (val) {
                   if (val!.isEmpty) {
-                    return 'Description cannot be null';
+                    return 'Description cannot be empty';
                   } else {
                     return null;
                   }
